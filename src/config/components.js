@@ -1,5 +1,5 @@
-import GalleryAstro from '../packages/Gallery/Gallery.astro'
-import Nomenclature from '../packages/Nomenclature/Nomenclature.astro'
+import GalleryAstro from '../packages/Gallery'
+import Nomenclature from '../packages/Nomenclature'
 
 export default [
     {
