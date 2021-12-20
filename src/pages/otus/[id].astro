@@ -1,0 +1,31 @@
+---
+import otuIds from '../../otuIds.js'
+import OtuPageComponents from '../../config/components.js'
+import DynamicComponent from '../../components/DynamicComponent.astro'
+import makeAPIRequest from '../../utils/makeAPIRequest.js'
+
+export async function getStaticPaths() {
+  return otuIds.map(id => ({ params: { id: id.toString() } }))
+}
+
+const { id } =  Astro.request.params
+const data = await makeAPIRequest(`/otus/${id.toString()}`)
+const componentsParams = {
+  taxon_name_id: [data.taxon_name_id],
+  otu_id: id
+}
+
+const getParams = params => {
+  return Object.fromEntries(
+    params.map(param => [param, componentsParams[param]])
+      .filter(([param, value]) => value))
+}
+---
+
+{
+  OtuPageComponents.map(({ component, props }) => 
+    <DynamicComponent
+      ComponentDynamic={component} 
+      props={getParams(props.params)}/>
+  )
+}

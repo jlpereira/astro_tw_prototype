@@ -1,0 +1,17 @@
+---
+import GalleryMain from './GalleryMain.vue'
+import makeAPIRequest from '../../utils/makeAPIRequest.js'
+
+const {
+  collection_object_id,
+  otu_id
+} = Astro.props
+
+const data = await makeAPIRequest(`/images.json`, { collection_object_id, otu_id })
+
+---
+  { otu_id }
+<GalleryMain
+  client:visible
+  images={data}
+/>

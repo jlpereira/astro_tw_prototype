@@ -1,0 +1,9 @@
+---
+import makeAPIRequest from '../../utils/makeAPIRequest.js'
+
+const { taxon_name_id } = Astro.props
+const data = await makeAPIRequest(`/taxon_names.json`, { taxon_name_id })
+---
+<pre>
+{ JSON.stringify(data, null, 2) }
+</pre>
